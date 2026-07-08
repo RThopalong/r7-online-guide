@@ -4,8 +4,7 @@ A practical, plain-language guide that gives everyday people the tools to be
 safer and more private online. No jargon, no products to buy from us, no
 tracking.
 
-**Live site:** https://YOUR-USERNAME.github.io/r7-online-guide/
-*(replace with your real URL once GitHub Pages is turned on — see below)*
+**Live site:** https://rthopalong.github.io/r7-online-guide/
 
 ---
 
