@@ -6,6 +6,26 @@ Nothing is ever deleted — the history is the point.
 
 ---
 
+## UI refresh (no version change) — July 2026
+
+- Refreshed the visual theme: dark mode now uses a leather/steel palette and
+  light mode now uses an aluminum/digital-blue palette, echoing the site's
+  logo.
+- Added collapsible topic sections with an "Expand all" / "Collapse all"
+  control, so the guide feels lighter-weight to skim.
+- Added Essential / Recommended / Optional priority badges to the Section 1
+  topics.
+- Renamed "Suggestions" to "Important Strategies" and "Opt-Out" to "Digital
+  Privacy Guide" in the section navigation and headings; renamed the Opt-Out
+  "Part 1" heading to "Opt-Out Strategies and DIY Guides".
+- Fixed a contrast bug where two section-nav tab labels were hardcoded to the
+  wrong theme's colors instead of following the active theme.
+
+This is a UI/UX-only update — no guide content, advice, or version number
+changed.
+
+---
+
 ## v1.7 — Beginner on-ramp, corrections & open licensing — July 2026
 
 - Added a **Start Here** panel: the five highest-impact steps, with honest
