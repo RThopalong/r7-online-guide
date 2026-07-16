@@ -1548,10 +1548,23 @@
   .topic.open .topic-chevron{transform:rotate(90deg);}
   .topic-body-wrap{display:none;margin-top:8px;}
   .topic.open .topic-body-wrap{display:block;}
+  .topic-toggle:not(:has(.topic-links)) .topic-chevron{margin-left:auto;}
   .section-collapse-controls{display:flex;gap:8px;margin:10px 0 18px;}
   .sc-btn{font-size:12.5px;font-weight:700;color:var(--accent);background:var(--tag-bg);border:1px solid var(--accent);padding:6px 12px;border-radius:8px;cursor:pointer;}
   .sc-btn:hover{filter:brightness(1.1);}
 
+  /* -- Accordion visibility upgrade: plus/minus toggle, open-state fade, active card styling -- */
+  .topic{transition:border-color .2s ease, background .2s ease, box-shadow .2s ease;}
+  .topic.open{border-color:var(--accent);background:var(--surface2);box-shadow:var(--shadow);}
+  .topic-chevron{position:relative;width:22px;height:22px;font-size:0;border:1.5px solid var(--border);border-radius:50%;background:var(--surface2);transition:border-color .2s ease, background .2s ease;}
+  .topic.open .topic-chevron{transform:none;border-color:var(--accent);background:var(--tag-bg);}
+  .topic-chevron::before,.topic-chevron::after{content:'';position:absolute;top:50%;left:50%;background:var(--text-muted);transition:transform .25s ease, background .2s ease;}
+  .topic-chevron::before{width:10px;height:2px;transform:translate(-50%,-50%);}
+  .topic-chevron::after{width:2px;height:10px;transform:translate(-50%,-50%);}
+  .topic.open .topic-chevron::before,.topic.open .topic-chevron::after{background:var(--accent);}
+  .topic.open .topic-chevron::after{transform:translate(-50%,-50%) rotate(90deg);}
+  .topic.open .topic-body-wrap{animation:topicFadeIn .3s ease;}
+  @keyframes topicFadeIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
   /* ── LIGHT MODE: aluminum/digital-blue palette treatment ── */
   [data-theme="light"] .hero { position: relative; z-index: 0; }
   [data-theme="light"] .hero::before {
@@ -1814,7 +1827,7 @@
     <!-- Cloud Backup -->
     <div class="topic">
       <h2 class="topic-toggle">☁ Set Up Encrypted Cloud Backup
-        <span class="priority-badge recommended">Recommended</span><span class="topic-links">
+        <span class="priority-badge optional">Optional</span><span class="topic-links">
           <a class="pill-link" href="https://www.nytimes.com/wirecutter/reviews/best-online-backup-service/" target="_blank" rel="noopener">Cloud Backup Review</a>
         </span>
       <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
@@ -1866,7 +1879,7 @@
 
     <!-- Payments -->
     <div class="topic">
-      <h2 class="topic-toggle">💳 Use Secure &amp; Masked Payments<span class="priority-badge recommended">Recommended</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle">💳 Use Secure &amp; Masked Payments<span class="priority-badge optional">Optional</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <ul>
         <li><strong>Apple Pay / Google Pay</strong> — Masks your real card number with a one-time code, protecting your info in vendor databases.</li>
         <li><a href="https://privacy.com/" target="_blank" rel="noopener">Privacy.com</a> and <a href="https://www.cloaked.app/" target="_blank" rel="noopener">Cloaked</a> — Virtual card services. Cards are locked to specific vendors, can have spending limits, and can be deactivated any time.</li>
