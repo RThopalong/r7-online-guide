@@ -1601,7 +1601,62 @@
     @media (prefers-reduced-motion: reduce) {
             #matrixRain { opacity: .05; }
     }
-</style>
+
+    /* Audit personalization quiz */
+    .audit-quiz {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+    .audit-quiz h3 { margin-top: 0; }
+    .audit-quiz-intro { color: var(--text-muted); margin-bottom: 16px; }
+    .quiz-group { margin-bottom: 16px; }
+    .quiz-label {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8em;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      margin: 0 0 8px;
+    }
+    .quiz-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 6px 0;
+      cursor: pointer;
+    }
+    .quiz-check input[type="checkbox"] { margin-top: 3px; }
+    .quiz-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .quiz-skip { opacity: 0.75; }
+    .quiz-status {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.9em;
+    }
+    .link-inline {
+      background: none;
+      border: none;
+      color: var(--link);
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0;
+      font: inherit;
+    }
+    @media print {
+      .audit-quiz { display: none !important; }
+    }
+
+    </style>
 </head>
 <body>
       <canvas id="matrixRain" aria-hidden="true"></canvas>
@@ -2548,6 +2603,52 @@
       <strong>Focus on the most critical items:</strong> password and 2FA audit, breach monitoring (HIBP, Mozilla), credit freezes and reports, data broker opt-outs, device security (updates, encryption, lock), and family emergency document. Run 1–2 times per year — but note that <strong>data-broker opt-outs benefit from a quarterly pass</strong>, since brokers re-list you (see <a href="#section3">Section 3</a>).
     </div>
 
+    <div class="audit-quiz" id="auditQuiz">
+      <h3>Personalize your checklist</h3>
+      <p class="audit-quiz-intro">Answer a few quick questions so we only show you the tasks that actually apply to you. Nothing is sent anywhere — your answers stay on this device.</p>
+
+      <div class="quiz-group">
+        <p class="quiz-label">Household</p>
+        <label class="quiz-check"><input type="checkbox" id="q-hasKids"> I have minor children living with me</label>
+        <label class="quiz-check"><input type="checkbox" id="q-helpsElderly"> I regularly help an aging parent or relative manage their accounts</label>
+      </div>
+
+      <div class="quiz-group">
+        <p class="quiz-label">Services I already pay for</p>
+        <label class="quiz-check"><input type="checkbox" id="q-paidMonitoring"> Paid identity/dark-web monitoring (Aura, LifeLock, Identity Guard, etc.)</label>
+        <label class="quiz-check"><input type="checkbox" id="q-paidRemoval"> Paid data-broker removal service (DeleteMe, Incogni, OneRep, Kanary, OfficerPrivacy)</label>
+        <label class="quiz-check"><input type="checkbox" id="q-paidSecuritySuite"> Paid security suite (Norton, McAfee, etc.)</label>
+        <label class="quiz-check"><input type="checkbox" id="q-cloudBackup"> Encrypted cloud backup service</label>
+        <label class="quiz-check"><input type="checkbox" id="q-vpnUser"> VPN subscription</label>
+      </div>
+
+      <div class="quiz-group">
+        <p class="quiz-label">Tools I already use</p>
+        <label class="quiz-check"><input type="checkbox" id="q-voipUser"> A VOIP number (Google Voice, MySudo, etc.) as my public-facing number</label>
+        <label class="quiz-check"><input type="checkbox" id="q-secureMessagingUser"> An encrypted messaging app (Signal or similar)</label>
+        <label class="quiz-check"><input type="checkbox" id="q-emailAliasUser"> An email-aliasing service (SimpleLogin, BurnerMail, etc.)</label>
+        <label class="quiz-check"><input type="checkbox" id="q-thirdPartyAV"> Third-party antivirus/anti-malware software (e.g. Malwarebytes)</label>
+        <label class="quiz-check"><input type="checkbox" id="q-socialMediaUser"> Active social media accounts (Facebook, Instagram, LinkedIn, TikTok, etc.)</label>
+      </div>
+
+      <div class="quiz-group">
+        <p class="quiz-label">Home network</p>
+        <label class="quiz-check"><input type="checkbox" id="q-managesRouter"> I manage my own home Wi-Fi router myself (not a landlord or ISP technician)</label>
+      </div>
+
+      <div class="quiz-group">
+        <p class="quiz-label">Prior steps</p>
+        <label class="quiz-check"><input type="checkbox" id="q-prescreenDone"> I've already registered at OptOutPrescreen.com</label>
+      </div>
+
+      <div class="quiz-actions">
+        <button type="button" class="link-btn" id="quizApply">Save &amp; personalize my checklist</button>
+        <button type="button" class="link-btn quiz-skip" id="quizSkip">Skip — show me everything</button>
+      </div>
+
+      <p class="quiz-status" id="quizStatus" hidden>Personalized for: <span id="quizSummary"></span> — <button type="button" class="link-inline" id="quizEdit">edit answers</button></p>
+    </div>
+
     <div class="audit-print-head">
       <h1>Annual Security Audit Record</h1>
       <div class="sub">R7's Online Guide · generated <span class="audit-print-date"></span></div>
@@ -2631,7 +2732,7 @@
               <td>Run a full report at <a href="https://monitor.mozilla.org/" target="_blank" rel="noopener">monitor.mozilla.org</a>. Review any data broker exposures it surfaces and follow its fix guidance.</td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Paid monitor review"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Paid monitor review" data-condition="paidMonitoring"></td>
               <td class="task-col"><strong>Paid monitor review</strong></td>
               <td>If you subscribe to Aura, LifeLock, Identity Guard, or similar — log in and review all alerts and recommendations from the past year.</td>
             </tr>
@@ -2662,14 +2763,14 @@
               <td>Pull your free annual reports at <a href="https://www.annualcreditreport.com/" target="_blank" rel="noopener">AnnualCreditReport.com</a> — the free, official site for one report from each of the three big bureaus (Equifax, Experian, TransUnion). Review for unfamiliar accounts or inquiries. Confirm freezes are active.</td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Freeze children's credit"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Freeze children's credit" data-condition="hasKids"></td>
               <td class="task-col"><strong>Freeze children's credit</strong></td>
               <td>If you have minor children, confirm their freezes are in place at all three bureaus.</td>
             </tr>
             <tr>
               <td class="cb-col"><input type="checkbox" aria-label="OptOutPrescreen renewal"></td>
               <td class="task-col"><strong>OptOutPrescreen renewal</strong></td>
-              <td>If your 5-year electronic opt-out has expired, renew at <a href="https://www.optoutprescreen.com/" target="_blank" rel="noopener">optoutprescreen.com</a>.</td>
+              <td><span data-variant="prescreenDone-yes">If your 5-year electronic opt-out has expired, renew at <a href="https://www.optoutprescreen.com/" target="_blank" rel="noopener">optoutprescreen.com</a>.</span><span data-variant="prescreenDone-no">Set up your free 5-year opt-out at <a href="https://www.optoutprescreen.com/" target="_blank" rel="noopener">optoutprescreen.com</a> to stop prescreened credit and insurance offers.</span></td>
             </tr>
           </tbody>
         </table>
@@ -2695,10 +2796,10 @@
             <tr>
               <td class="cb-col"><input type="checkbox" aria-label="Check paid removal service"></td>
               <td class="task-col"><strong>Check removal dashboards</strong></td>
-              <td>Review your free <a href="https://app.optery.com/" target="_blank" rel="noopener">Optery</a> dashboard for new exposures, and — if you use a paid service (<a href="https://joindeleteme.com/" target="_blank" rel="noopener">DeleteMe</a>, <a href="https://onerep.com/" target="_blank" rel="noopener">OneRep</a>, <a href="https://www.kanary.com/" target="_blank" rel="noopener">Kanary</a>, <a href="https://incogni.com/" target="_blank" rel="noopener">Incogni</a>, <a href="https://officerprivacy.com/homepage1" target="_blank" rel="noopener">OfficerPrivacy</a>) — check its latest removal report and coverage against what's still showing.</td>
+              <td><span data-variant="paidRemoval-yes">Review your free <a href="https://app.optery.com/" target="_blank" rel="noopener">Optery</a> dashboard for new exposures, and — if you use a paid service (<a href="https://joindeleteme.com/" target="_blank" rel="noopener">DeleteMe</a>, <a href="https://onerep.com/" target="_blank" rel="noopener">OneRep</a>, <a href="https://www.kanary.com/" target="_blank" rel="noopener">Kanary</a>, <a href="https://incogni.com/" target="_blank" rel="noopener">Incogni</a>, <a href="https://officerprivacy.com/homepage1" target="_blank" rel="noopener">OfficerPrivacy</a>) — check its latest removal report and coverage against what's still showing.</span><span data-variant="paidRemoval-no">Review your free <a href="https://app.optery.com/" target="_blank" rel="noopener">Optery</a> dashboard for any new exposures that have appeared since your last check.</span></td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Social media privacy audit"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Social media privacy audit" data-condition="socialMediaUser"></td>
               <td class="task-col"><strong>Social media privacy audit</strong></td>
               <td>Review privacy settings on each platform. Look for: who can see your posts, who can tag you, and what data apps have been granted access. Use the <a href="https://docs.google.com/document/d/1ud1ILFkIG0BeLX9jlzJMxCPm8-cSeqPjU60nkhUPYA8/edit" target="_blank" rel="noopener">NYT Social Media Privacy Guide</a>.</td>
             </tr>
@@ -2729,12 +2830,12 @@
               <td>List all devices in the household. Confirm each has: OS updates current, screen lock enabled, encryption on, auto-lock set to ≤5 minutes.</td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Review children's accounts"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Review children's accounts" data-condition="hasKids"></td>
               <td class="task-col"><strong>Review children's accounts</strong></td>
               <td>Check Screen Time / Family Link reports. Review which apps have been downloaded. Confirm school accounts have appropriate privacy settings.</td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Update elderly family member accounts"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Update elderly family member accounts" data-condition="helpsElderly"></td>
               <td class="task-col"><strong>Update elderly family member accounts</strong></td>
               <td>Log in to their email and bank accounts with them. Review security settings, confirm 2FA is active, update any weak passwords.</td>
             </tr>
@@ -2744,12 +2845,12 @@
               <td>Update your shared family emergency document: account list, recovery contacts, device PINs. Store it encrypted in your password manager.</td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Guest Wi-Fi review"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Guest Wi-Fi review" data-condition="managesRouter"></td>
               <td class="task-col"><strong>Guest Wi-Fi review</strong></td>
               <td>Confirm your router still has a separate guest network for smart home devices. Update the guest Wi-Fi password annually.</td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Backup verification"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Backup verification" data-condition="cloudBackup"></td>
               <td class="task-col"><strong>Backup verification</strong></td>
               <td>Test your cloud backup by restoring one file. Confirm your encryption key is stored somewhere accessible.</td>
             </tr>
@@ -2770,17 +2871,17 @@
           </thead>
           <tbody>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Email alias audit"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Email alias audit" data-condition="emailAliasUser"></td>
               <td class="task-col"><strong>Email alias audit</strong></td>
               <td>In <a href="https://app.simplelogin.io/auth/login" target="_blank" rel="noopener">SimpleLogin</a> or <a href="https://burnermail.io/" target="_blank" rel="noopener">BurnerMail</a>, review active aliases. Deactivate any used for sites you no longer trust or visit.</td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="VOIP number review"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="VOIP number review" data-condition="voipUser"></td>
               <td class="task-col"><strong>VOIP number review</strong></td>
               <td>Confirm your VOIP number (<a href="https://voice.google.com/about" target="_blank" rel="noopener">Google Voice</a>, <a href="https://mysudo.com/" target="_blank" rel="noopener">MySudo</a>) is still active and forwarding correctly.</td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Secure messaging check"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Secure messaging check" data-condition="secureMessagingUser"></td>
               <td class="task-col"><strong>Secure messaging check</strong></td>
               <td>Confirm <a href="https://signal.org/" target="_blank" rel="noopener">Signal</a> (or equivalent) is updated and your contacts are using it. Remove linked devices you no longer own.</td>
             </tr>
@@ -2801,12 +2902,12 @@
           </thead>
           <tbody>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Router firmware"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Router firmware" data-condition="managesRouter"></td>
               <td class="task-col"><strong>Router firmware</strong></td>
               <td>Log in to your router admin panel and check for firmware updates. Change the admin password if it's still the default.</td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="VPN check"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="VPN check" data-condition="vpnUser"></td>
               <td class="task-col"><strong>VPN check</strong></td>
               <td>Confirm your VPN subscription is active and the app is updated. Run a DNS leak test at dnsleaktest.com.</td>
             </tr>
@@ -2821,7 +2922,7 @@
               <td>Confirm all devices are on the latest OS version. Enable automatic updates if you haven't already.</td>
             </tr>
             <tr>
-              <td class="cb-col"><input type="checkbox" aria-label="Antivirus / Malwarebytes scan"></td>
+              <td class="cb-col"><input type="checkbox" aria-label="Antivirus / Malwarebytes scan" data-condition="thirdPartyAV"></td>
               <td class="task-col"><strong>Antivirus / Malwarebytes scan</strong></td>
               <td>Run a full scan on each computer using <a href="https://www.malwarebytes.com/" target="_blank" rel="noopener">Malwarebytes</a>. Review results and follow any remediation steps.</td>
             </tr>
@@ -3585,4 +3686,157 @@
                  }
                      })();
                </script>
-      </body></html>
+      <script>
+      (function () {
+        var QUIZ_KEY = 'r7-audit-quiz';
+        var CONDS = ['hasKids','helpsElderly','paidMonitoring','paidRemoval','paidSecuritySuite','cloudBackup','vpnUser','voipUser','secureMessagingUser','emailAliasUser','thirdPartyAV','socialMediaUser','managesRouter','prescreenDone'];
+        var LABELS = {
+          hasKids: 'has kids', helpsElderly: 'helps an elderly relative', paidMonitoring: 'paid monitoring service',
+          paidRemoval: 'paid removal service', paidSecuritySuite: 'paid security suite', cloudBackup: 'cloud backup',
+          vpnUser: 'VPN', voipUser: 'VOIP number', secureMessagingUser: 'encrypted messaging', emailAliasUser: 'email aliases',
+          thirdPartyAV: 'third-party antivirus', socialMediaUser: 'social media', managesRouter: 'manages own router',
+          prescreenDone: 'prescreen opt-out already done'
+        };
+
+        function loadAnswers() {
+          try { var raw = localStorage.getItem(QUIZ_KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+        }
+        function saveAnswers(ans) {
+          try { localStorage.setItem(QUIZ_KEY, JSON.stringify(ans)); } catch (e) {}
+        }
+        function clearAnswers() {
+          try { localStorage.removeItem(QUIZ_KEY); } catch (e) {}
+        }
+        function readForm() {
+          var ans = {};
+          CONDS.forEach(function (c) {
+            var el = document.getElementById('q-' + c);
+            ans[c] = !!(el && el.checked);
+          });
+          return ans;
+        }
+        function fillForm(ans) {
+          CONDS.forEach(function (c) {
+            var el = document.getElementById('q-' + c);
+            if (el) el.checked = !!ans[c];
+          });
+        }
+        function summarize(ans) {
+          var active = CONDS.filter(function (c) { return ans[c]; }).map(function (c) { return LABELS[c]; });
+          return active.length ? active.join(', ') : 'the essentials only';
+        }
+        function showStatus(ans) {
+          var status = document.getElementById('quizStatus');
+          var summary = document.getElementById('quizSummary');
+          if (!status || !summary) return;
+          summary.textContent = summarize(ans);
+          status.hidden = false;
+        }
+        function hideStatus() {
+          var status = document.getElementById('quizStatus');
+          if (status) status.hidden = true;
+        }
+
+        function applyFilter(ans) {
+          document.querySelectorAll('[data-condition]').forEach(function (input) {
+            var row = input.closest('tr');
+            if (!row) return;
+            var cond = input.getAttribute('data-condition');
+            var show = ans ? !!ans[cond] : true;
+            row.style.display = show ? '' : 'none';
+          });
+
+          document.querySelectorAll('[data-variant]').forEach(function (span) {
+            var parts = span.getAttribute('data-variant').split('-');
+            var cond = parts[0], val = parts[1];
+            var truthy = ans ? !!ans[cond] : (val === 'yes');
+            var shouldShow = (val === 'yes') === truthy;
+            span.style.display = shouldShow ? '' : 'none';
+          });
+
+          document.querySelectorAll('.checklist-section').forEach(function (section) {
+            var rows = section.querySelectorAll('tbody tr');
+            var visibleCount = 0;
+            rows.forEach(function (r) { if (r.style.display !== 'none') visibleCount++; });
+            section.style.display = visibleCount > 0 ? '' : 'none';
+
+            var jump = document.querySelector('.audit-jump[href="#' + section.id + '"]');
+            if (jump) jump.style.display = visibleCount > 0 ? '' : 'none';
+          });
+
+          recalcProgress();
+        }
+
+        function recalcProgress() {
+          document.querySelectorAll('.checklist-section').forEach(function (section) {
+            var rows = [].slice.call(section.querySelectorAll('tbody tr')).filter(function (r) { return r.style.display !== 'none'; });
+            var boxes = rows.map(function (r) { return r.querySelector('input[type="checkbox"]'); }).filter(Boolean);
+            var done = boxes.filter(function (b) { return b.checked; }).length;
+            var total = boxes.length;
+
+            var countEl = section.querySelector('.mini-count');
+            var fillEl = section.querySelector('.mini-fill');
+            if (countEl) countEl.textContent = done + '/' + total;
+            if (fillEl) fillEl.style.width = (total ? (done / total * 100) : 0) + '%';
+
+            var jump = document.querySelector('.audit-jump[href="#' + section.id + '"]');
+            if (jump) {
+              var ajCount = jump.querySelector('.aj-count');
+              if (ajCount) ajCount.textContent = done + '/' + total;
+            }
+          });
+
+          var allRows = [].slice.call(document.querySelectorAll('.checklist-section tbody tr')).filter(function (r) { return r.style.display !== 'none'; });
+          var allBoxes = allRows.map(function (r) { return r.querySelector('input[type="checkbox"]'); }).filter(Boolean);
+          var doneAll = allBoxes.filter(function (b) { return b.checked; }).length;
+          var countEl = document.getElementById('auditCount');
+          if (countEl) countEl.textContent = doneAll + ' / ' + allBoxes.length + ' complete';
+        }
+
+        function init() {
+          var ans = loadAnswers();
+          if (ans) {
+            fillForm(ans);
+            showStatus(ans);
+          }
+          applyFilter(ans);
+
+          var applyBtn = document.getElementById('quizApply');
+          if (applyBtn) applyBtn.addEventListener('click', function () {
+            var newAns = readForm();
+            saveAnswers(newAns);
+            showStatus(newAns);
+            applyFilter(newAns);
+          });
+
+          var skipBtn = document.getElementById('quizSkip');
+          if (skipBtn) skipBtn.addEventListener('click', function () {
+            clearAnswers();
+            hideStatus();
+            applyFilter(null);
+          });
+
+          var editBtn = document.getElementById('quizEdit');
+          if (editBtn) editBtn.addEventListener('click', function () {
+            var quiz = document.getElementById('auditQuiz');
+            if (quiz && quiz.scrollIntoView) quiz.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+
+          document.querySelectorAll('.checklist-table input[type="checkbox"]').forEach(function (cb) {
+            cb.addEventListener('change', recalcProgress);
+          });
+
+          var resetBtn = document.getElementById('resetAudit');
+          if (resetBtn) resetBtn.addEventListener('click', function () {
+            setTimeout(recalcProgress, 0);
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+    </body></html>
