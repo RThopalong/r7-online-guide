@@ -1587,9 +1587,24 @@
   [data-theme="light"] .section-nav-card:nth-child(3) .label { color: #a8462b; }
   [data-theme="light"] .section-nav-card:nth-child(4) .label { color: #7c5cbf; }
   html { overflow-x: hidden; }
+/* Matrix rain background effect (very subtle, theme-aware, motion-safe) */
+    #matrixRain {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: .105;
+    }
+    [data-theme="light"] #matrixRain { opacity: .09; }
+    @media (prefers-reduced-motion: reduce) {
+            #matrixRain { opacity: .05; }
+    }
 </style>
 </head>
 <body>
+      <canvas id="matrixRain" aria-hidden="true"></canvas>
 
 <a href="#main" class="skip-link">Skip to content</a>
 
@@ -3510,4 +3525,64 @@
     if (expandBtn) expandBtn.addEventListener('click', function(){ topics.forEach(function(t){ t.classList.add('open'); }); });
     if (collapseBtn) collapseBtn.addEventListener('click', function(){ topics.forEach(function(t){ t.classList.remove('open'); }); });
   });
-</script></body></html>
+</script>
+               <script>
+                     (function(){
+                             var canvas = document.getElementById('matrixRain');
+                       if(!canvas) return;
+                       var ctx = canvas.getContext('2d');
+                       var w, h, drops;
+                       var fontSize = 16;
+                             var chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+
+                       function resize(){
+                         w = canvas.width = window.innerWidth;
+                         h = canvas.height = window.innerHeight;
+                         var columns = Math.floor(w / fontSize);
+                                 drops = new Array(columns).fill(0).map(function(){ return Math.random() * h / fontSize; });
+                 }
+                       window.addEventListener('resize', resize);
+                       resize();
+
+                             var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                             function currentColors(){
+                                       var cs = getComputedStyle(document.documentElement);
+                                       var accent = cs.getPropertyValue('--accent').trim() || '#5fc2f0';
+                         var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+                                       var fade = theme === 'light' ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.06)';
+                         return { accent: accent, fade: fade };
+                 }
+
+                       function draw(){
+                         var c = currentColors();
+                                 ctx.fillStyle = c.fade;
+                                 ctx.fillRect(0, 0, w, h);
+                                 ctx.fillStyle = c.accent;
+                                 ctx.font = fontSize + 'px monospace';
+                                 for(var i=0;i<drops.length;i++){
+                           var text = chars[Math.floor(Math.random() * chars.length)];
+                                             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                           if(drops[i] * fontSize > h && Math.random() > 0.975){
+                             drops[i] = 0;
+                 }
+                           drops[i]++;
+                 }
+                 }
+
+                       if(reduceMotion){
+                                 draw();
+                 } else {
+                                 var last = 0;
+                         function loop(ts){
+                           if(ts - last > 150){
+                                         draw();
+                             last = ts;
+                 }
+                           requestAnimationFrame(loop);
+                 }
+                         requestAnimationFrame(loop);
+                 }
+                     })();
+               </script>
+      </body></html>
