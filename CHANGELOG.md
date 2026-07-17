@@ -6,6 +6,23 @@ Nothing is ever deleted — the history is the point.
 
 ---
 
+## v1.8 — Personalized audit checklist — July 2026
+
+- Added a **Personalize your checklist** quiz to Section 4 — a few quick
+  questions (kids or elderly dependents in your care, paid monitoring/removal/
+  security services, VPN, router admin, social media use, etc.) that filter
+  the 29-item audit down to only what applies to you.
+- Answers are stored locally on your device only — nothing is sent anywhere.
+- Progress counts, category chips, and the overall completion percentage now
+  reflect only your personalized item list; categories with no relevant items
+  (e.g. Email & Communications) hide themselves automatically.
+- The quiz is excluded from the Print / Save as PDF output, so your exported
+  checklist stays clean.
+- You can reopen the quiz anytime to change your answers, or skip it to see
+  the full original checklist.
+
+---
+
 ## UI refresh (no version change) — July 2026
 
 - Refreshed the visual theme: dark mode now uses a leather/steel palette and
