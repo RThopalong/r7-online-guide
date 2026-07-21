@@ -89,12 +89,12 @@
     --link-hover:#8adcff;
     --shadow:    0 8px 24px rgba(0,0,0,.4);
     --mark:      rgba(217,160,102,.3);
-    --badge-essential:#4ecb78;
-    --badge-essential-bg:rgba(78,203,120,0.18);
-    --badge-essential-border:#4ecb78;
-    --badge-recommended:#5fb0e8;
-    --badge-recommended-bg:rgba(95,176,232,0.2);
-    --badge-recommended-border:#5fb0e8;
+    --badge-essential:#4caf7d;
+    --badge-essential-bg:rgba(76,175,125,0.18);
+    --badge-essential-border:#4caf7d;
+    --badge-recommended:#8fa89a;
+    --badge-recommended-bg:rgba(143,168,154,0.18);
+    --badge-recommended-border:#8fa89a;
     --badge-optional:#b7bec5;
     --badge-optional-bg:rgba(183,190,197,0.16);
     --badge-optional-border:#b7bec5;
@@ -117,12 +117,12 @@
     --link-hover:#064f61;
     --shadow:    0 6px 20px rgba(31,35,40,.2);
     --mark:      rgba(154,103,0,.22);
-    --badge-essential:#2f8f4e;
-    --badge-essential-bg:#e8f7ec;
-    --badge-essential-border:#2f8f4e;
-    --badge-recommended:#1f5f8b;
-    --badge-recommended-bg:#e6f0f7;
-    --badge-recommended-border:#1f5f8b;
+    --badge-essential:#1f6b3f;
+    --badge-essential-bg:#e3efe6;
+    --badge-essential-border:#1f6b3f;
+    --badge-recommended:#5c7566;
+    --badge-recommended-bg:#eaeeec;
+    --badge-recommended-border:#5c7566;
     --badge-optional:#6b7280;
     --badge-optional-bg:#eef0f2;
     --badge-optional-border:#6b7280;
@@ -1558,6 +1558,11 @@
   .priority-badge.essential{color:var(--badge-essential);border-color:var(--badge-essential-border);background:var(--badge-essential-bg);}
   .priority-badge.recommended{color:var(--badge-recommended);border-color:var(--badge-recommended-border);background:var(--badge-recommended-bg);}
   .priority-badge.optional{color:var(--badge-optional);border-color:var(--badge-optional-border);background:var(--badge-optional-bg);}
+  /* Topic header two-row layout: title+badge+chevron on row 1, why-pill+links on row 2 */
+  .topic-toggle .topic-title { order: 1; flex: 1 1 auto; min-width: 0; }
+  .topic-toggle .priority-badge { order: 2; flex-shrink: 0; }
+  .topic-toggle .topic-chevron { order: 3; flex-shrink: 0; margin-left: 0; }
+  .topic-toggle .topic-links { order: 4; flex-basis: 100%; margin-left: 0; margin-top: .4rem; }
   .topic-toggle{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;}
   .topic-toggle-inner{display:flex;align-items:center;flex-wrap:wrap;}
   .topic-chevron{color:var(--text-muted);font-size:13px;transition:transform .2s;margin-left:10px;flex-shrink:0;}
@@ -1863,8 +1868,8 @@
 
     <!-- Password Manager -->
     <div class="section-collapse-controls"><button class="sc-btn sc-expand">Expand all</button><button class="sc-btn sc-collapse">Collapse all</button></div><div class="topic open">
-      <h2 class="topic-toggle">🔑 Get a Password Manager
-        <span class="priority-badge essential">Essential</span><span class="topic-links">
+      <h2 class="topic-toggle"><span class="topic-title">🔑 Get a Password Manager</span>
+      <span class="priority-badge essential">Essential</span><span class="topic-links">
           <a class="pill-link" href="https://restoreprivacy.com/password-manager/" target="_blank" rel="noopener">Reviews</a>
           <a class="pill-link" href="https://www.allthingssecured.com/identity-protection/how-do-password-managers-work/" target="_blank" rel="noopener">Setup Guide</a>
         </span>
@@ -1887,8 +1892,8 @@
 
     <!-- 2FA -->
     <div class="topic">
-      <h2 class="topic-toggle">🔐 Use Two-Factor Authentication (2FA) — and Passkeys
-        <span class="priority-badge essential">Essential</span><span class="topic-links">
+      <h2 class="topic-toggle"><span class="topic-title">🔐 Use Two-Factor Authentication (2FA) — and Passkeys</span>
+      <span class="priority-badge essential">Essential</span><span class="topic-links">
           <a class="pill-link" href="https://www.allthingssecured.com/identity-protection/what-is-2-factor-authentication/" target="_blank" rel="noopener">What is 2FA?</a>
           <a class="pill-link" href="https://www.cisa.gov/MFA" target="_blank" rel="noopener">How to use 2FA</a>
         </span>
@@ -1913,8 +1918,8 @@
 
     <!-- VPN -->
     <div class="topic">
-      <h2 class="topic-toggle">🛡 Use a VPN
-        <span class="priority-badge recommended">Recommended</span><span class="topic-links">
+      <h2 class="topic-toggle"><span class="topic-title">🛡 Use a VPN</span>
+      <span class="priority-badge recommended">Recommended</span><span class="topic-links">
           <a class="pill-link" href="https://restoreprivacy.com/vpn/best/" target="_blank" rel="noopener">VPN Reviews</a>
         </span>
       <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
@@ -1928,8 +1933,8 @@
 
     <!-- Cloud Backup -->
     <div class="topic">
-      <h2 class="topic-toggle">☁ Set Up Encrypted Cloud Backup
-        <span class="priority-badge optional">Optional</span><span class="topic-links">
+      <h2 class="topic-toggle"><span class="topic-title">☁ Set Up Encrypted Cloud Backup</span>
+      <span class="priority-badge optional">Optional</span><span class="topic-links">
           <a class="pill-link" href="https://www.nytimes.com/wirecutter/reviews/best-online-backup-service/" target="_blank" rel="noopener">Cloud Backup Review</a>
         </span>
       <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
@@ -1943,7 +1948,8 @@
 
     <!-- Browsers -->
     <div class="topic">
-      <h2 class="topic-toggle">🌐 Choose Privacy-First Browsers &amp; Search Engines<span class="priority-badge recommended">Recommended</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">🌐 Choose Privacy-First Browsers &amp; Search Engines</span>
+      <span class="priority-badge recommended">Recommended</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <p>Avoid Google Chrome and Microsoft Edge. Recommended alternatives:</p>
       <ul>
         <li><a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank" rel="noopener">Firefox</a> and <a href="https://brave.com/" target="_blank" rel="noopener">Brave</a> — preferred browsers, both founded by privacy advocates.</li>
@@ -1955,7 +1961,8 @@
 
     <!-- Antivirus -->
     <div class="topic">
-      <h2 class="topic-toggle">🖥 Assess Your Anti-Virus Posture<span class="priority-badge optional">Optional</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">🖥 Assess Your Anti-Virus Posture</span>
+      <span class="priority-badge optional">Optional</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <ul>
         <li>Running the latest Windows Defender? The free version of <a href="https://www.malwarebytes.com/" target="_blank" rel="noopener">Malwarebytes</a> is sufficient for most people — no separate paid anti-virus needed.</li>
         <li>Paid suites like <a href="https://us.norton.com/products" target="_blank" rel="noopener">Norton</a>, <a href="https://www.bitdefender.com/solutions/" target="_blank" rel="noopener">Bitdefender</a>, and <a href="https://www.mcafee.com/en-us/index.html" target="_blank" rel="noopener">McAfee</a> add value through bundled VPNs, child safety tools, and multi-device support. This added value can come at a cost: sometimes significant bloat that reduces speed and battery life.</li>
@@ -1964,8 +1971,8 @@
 
     <!-- Credit Freeze -->
     <div class="topic">
-      <h2 class="topic-toggle">❄ Freeze Your Credit
-        <span class="priority-badge essential">Essential</span><span class="topic-links">
+      <h2 class="topic-toggle"><span class="topic-title">❄ Freeze Your Credit</span>
+      <span class="priority-badge essential">Essential</span><span class="topic-links">
           <a class="pill-link" href="https://www.allthingssecured.com/identity-protection/credit-freeze/" target="_blank" rel="noopener">Credit Freeze Basics</a>
           <a class="pill-link" href="https://inteltechniques.com/freeze.html" target="_blank" rel="noopener">Overview</a>
         </span>
@@ -1981,7 +1988,8 @@
 
     <!-- Payments -->
     <div class="topic">
-      <h2 class="topic-toggle">💳 Use Secure &amp; Masked Payments<span class="priority-badge optional">Optional</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">💳 Use Secure &amp; Masked Payments</span>
+      <span class="priority-badge optional">Optional</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <ul>
         <li><strong>Apple Pay / Google Pay</strong> — Masks your real card number with a one-time code, protecting your info in vendor databases.</li>
         <li><a href="https://privacy.com/" target="_blank" rel="noopener">Privacy.com</a> and <a href="https://www.cloaked.app/" target="_blank" rel="noopener">Cloaked</a> — Virtual card services. Cards are locked to specific vendors, can have spending limits, and can be deactivated any time.</li>
@@ -1990,7 +1998,8 @@
 
     <!-- Family -->
     <div class="topic">
-      <h2 class="topic-toggle">👨‍👩‍👧‍👦 Family-Specific Protocols<span class="priority-badge recommended">Recommended</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">👨‍👩‍👧‍👦 Family-Specific Protocols</span>
+      <span class="priority-badge recommended">Recommended</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <p>Security habits work best when the whole household shares them. These protocols address the unique challenges of protecting children, teens, and elderly family members online.</p>
 
       <h3>Children &amp; Teens</h3>
@@ -2043,7 +2052,8 @@
 
     <!-- Email -->
     <div class="section-collapse-controls"><button class="sc-btn sc-expand">Expand all</button><button class="sc-btn sc-collapse">Collapse all</button></div><div class="topic open">
-      <h2 class="topic-toggle">📧 Secure Personal Email<span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">📧 Secure Personal Email</span>
+      <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <ul>
         <li><a href="https://protonmail.com/" target="_blank" rel="noopener">Proton Mail</a> — Switzerland-based, strong encryption, free and paid plans. My primary secure email (I also bundle their VPN).</li>
         <li><a href="https://Tuta.com" target="_blank" rel="noopener">Tuta (Tutanota)</a> — Another strong encrypted email option.</li>
@@ -2058,7 +2068,8 @@
 
     <!-- VOIP -->
     <div class="topic">
-      <h2 class="topic-toggle">📱 VOIP Numbers<span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">📱 VOIP Numbers</span>
+      <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <ul>
         <li><a href="https://voice.google.com/about" target="_blank" rel="noopener">Google Voice</a> — Free secondary phone number, works from phone or computer.</li>
         <li><a href="https://mysudo.com/" target="_blank" rel="noopener">MySudo</a> — ~$1/month for an anonymous number and email.</li>
@@ -2069,7 +2080,8 @@
 
     <!-- Messaging -->
     <div class="topic">
-      <h2 class="topic-toggle">💬 Secure Messaging <span class="new-badge">Updated v1.7</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">💬 Secure Messaging</span>
+      <span class="new-badge">Updated v1.7</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <ul>
         <li><a href="https://signal.org/" target="_blank" rel="noopener">Signal</a> — Free, end-to-end encrypted, third-party audited. My top recommendation.</li>
         <li>Also recommended: <a class="link-btn" href="https://wire.com/" target="_blank" rel="noopener">Wire</a> <a class="link-btn" href="https://threema.ch/en" target="_blank" rel="noopener">Threema</a></li>
@@ -2081,8 +2093,8 @@
 
     <!-- VPN Options -->
     <div class="topic">
-      <h2 class="topic-toggle">🔒 VPN Options
-        <span class="topic-links">
+      <h2 class="topic-toggle"><span class="topic-title">🔒 VPN Options</span>
+      <span class="topic-links">
           <a class="pill-link" href="https://restoreprivacy.com/vpn/best/" target="_blank" rel="noopener">Full VPN Reviews</a>
         </span>
       <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
@@ -2094,7 +2106,8 @@
 
     <!-- Browser Extensions -->
     <div class="topic">
-      <h2 class="topic-toggle">🧩 Privacy Browser Extensions <span class="new-badge">Updated v1.7</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">🧩 Privacy Browser Extensions</span>
+      <span class="new-badge">Updated v1.7</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <p>You only need <strong>one</strong> good content blocker — stacking several slows your browser and can break sites.</p>
       <ul>
         <li><a href="https://ublockorigin.com/" target="_blank" rel="noopener">uBlock Origin</a> — The gold standard: free, open source, blocks ads, trackers, and known malicious sites. Full version works on <strong>Firefox</strong>, <strong>Brave</strong>, and <strong>Edge</strong>. Install it only from your browser's official extension store, and check the developer page before installing — copycats exist.</li>
@@ -2106,7 +2119,8 @@
 
     <!-- Physical Mail -->
     <div class="topic">
-      <h2 class="topic-toggle">📬 Physical Mail Options<span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">📬 Physical Mail Options</span>
+      <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <ul>
         <li><a href="https://informeddelivery.usps.com/box/pages/intro/start.action" target="_blank" rel="noopener">USPS Informed Delivery</a> — Preview your mail digitally before it arrives. Free. <a class="link-btn" href="https://www.fedex.com/en-us/delivery-manager.html" target="_blank" rel="noopener">FedEx</a> and <a class="link-btn" href="https://www.ups.com/us/en/services/tracking/mychoice.page" target="_blank" rel="noopener">UPS</a> have similar programs.</li>
         <li><a href="https://ipostal1.com/" target="_blank" rel="noopener">iPostal1</a>, <a href="https://www.usglobalmail.com/" target="_blank" rel="noopener">USGlobalMail</a>, <a href="https://travelingmailbox.com/" target="_blank" rel="noopener">TravelingMailbox</a> — Real physical addresses (not P.O. boxes) that can forward, shred, or scan your mail on demand.</li>
@@ -2115,7 +2129,8 @@
 
     <!-- Dark Web Monitoring -->
     <div class="topic">
-      <h2 class="topic-toggle">🕵️ Dark Web &amp; Breach Monitoring<span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">🕵️ Dark Web &amp; Breach Monitoring</span>
+      <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <p>Have I Been Pwned is a great starting point, but a layered approach gives you much earlier and broader coverage. The sources below monitor different parts of the breach ecosystem.</p>
 
       <h3>Free Monitoring Tools</h3>
@@ -2140,7 +2155,8 @@
 
     <!-- Key Online Resources -->
     <div class="topic">
-      <h2 class="topic-toggle">🔍 Key Online Resources<span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">🔍 Key Online Resources</span>
+      <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <ul>
         <li><a href="https://haveibeenpwned.com/" target="_blank" rel="noopener">Have I Been Pwned</a> — Check if your email or accounts have been in a data breach.</li>
         <li><a href="https://safeweb.norton.com/" target="_blank" rel="noopener">Norton SafeWeb</a> — Check any website for malware, phishing, or virus activity.</li>
@@ -2166,7 +2182,8 @@
     <p class="section-intro">The purpose of this section is to help you remove your personal identifying information from online data brokers and people-search sites.</p>
 
     <div class="section-collapse-controls"><button class="sc-btn sc-expand">Expand all</button><button class="sc-btn sc-collapse">Collapse all</button></div><div class="topic open">
-      <h2 class="topic-toggle">🧹 Part 1 · Opt-Out Strategies and DIY Guides <span class="new-badge v-prev">v1.6</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">🧹 Part 1 · Opt-Out Strategies and DIY Guides</span>
+      <span class="new-badge v-prev">v1.6</span><span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <p>Paid services like the ones listed here will help get rid of somewhere between 40% and 80% of most people's digital privacy vulnerabilities. Doing the process yourself (DIY) can be much more time-consuming and technical, but will generally be far more effective in removing those digital privacy concerns. For people who are serious about their privacy, I usually advise a hybrid method, outlined below.</p>
       <p style="margin-bottom:.4rem"><strong>One strategy if you are new to digital privacy is to:</strong></p>
       <ol style="margin-top:0">
@@ -2206,7 +2223,8 @@
 
     <!-- Part 2: Data Brokers -->
     <div class="topic">
-      <h2 class="topic-toggle">📋 Part 2 · Data Brokers<span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">📋 Part 2 · Data Brokers</span>
+      <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1rem">Primary Data Brokers (PDBs) gather online data from apps, websites, lenders, utilities, commercial entities, and social networks, then sell it to people-search sites and advertisers. Opting out of these PDBs is a critical step toward long-term improvement of your digital privacy. This step essentially shuts off a lot of the flows of information that people-search sites use to populate their files on you.</p>
 
       <div class="optout-entry">
@@ -2289,7 +2307,8 @@
 
     <!-- Part 3: People Search Sites -->
     <div class="topic">
-      <h2 class="topic-toggle">🔎 Part 3 · People Search Sites<span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
+      <h2 class="topic-toggle"><span class="topic-title">🔎 Part 3 · People Search Sites</span>
+      <span class="topic-chevron">▸</span></h2><div class="topic-body-wrap">
       <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1rem">People-search sites aggregate data from Primary Data Brokers and public records. Opting out significantly reduces your online presence.</p>
 
       <div class="optout-entry">
@@ -3887,12 +3906,20 @@
     function makePill(title,text){ var pill=document.createElement('span'); pill.className='why-pill'; pill.setAttribute('tabindex','0'); pill.setAttribute('role','button'); pill.setAttribute('aria-label','Why is '+title+' important?'); pill.innerHTML='<span class="why-q">?<\/span> Why is this important'; pill.setAttribute('data-why',buildHTML(title,text)); pill.addEventListener('mouseenter',function(){show(pill);}); pill.addEventListener('mouseleave',hide); pill.addEventListener('focus',function(){show(pill);}); pill.addEventListener('blur',hide); pill.addEventListener('click',function(e){e.stopPropagation(); if(current===pill){hide();}else{show(pill);}}); return pill; }
     document.querySelectorAll('h2.topic-toggle').forEach(function(h2){
       if(h2.querySelector('.why-pill')) return;
-      var label=''; for(var i=0;i<h2.childNodes.length;i++){var n=h2.childNodes[i]; if(n.nodeType===3) label+=n.textContent;} label=label.trim();
+      var titleEl=h2.querySelector('.topic-title');
+      var label='';
+      if(titleEl){ label=titleEl.textContent.trim(); }
+      else { for(var i=0;i<h2.childNodes.length;i++){var n=h2.childNodes[i]; if(n.nodeType===3) label+=n.textContent;} label=label.trim(); }
       var key=matchKey(label); if(!key) return;
       var title=label.replace(/^[^A-Za-z0-9]+/,'').trim();
       var pill=makePill(title,BLURBS[key]);
       var chev=h2.querySelector('.topic-chevron'); var links=h2.querySelector('.topic-links');
-      if(links){links.appendChild(pill);} else if(chev){h2.insertBefore(pill,chev);} else {h2.appendChild(pill);}
+      if(links){ links.insertBefore(pill,links.firstChild); }
+      else {
+        links=document.createElement('span'); links.className='topic-links';
+        links.appendChild(pill);
+        if(chev){ h2.insertBefore(links,chev); } else { h2.appendChild(links); }
+      }
     });
     var sec4=document.getElementById('section4');
     if(sec4){ var t4=sec4.querySelector('.section-title'); if(t4&&!t4.querySelector('.why-pill')){ t4.appendChild(makePill('a customized audit checklist',BLURBS['audit'])); } }
